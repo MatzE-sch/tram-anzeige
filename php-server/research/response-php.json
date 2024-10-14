@@ -1,0 +1,52 @@
+[
+    {
+        "destination": "Oberhausen, Nord P+R",
+        "lineNumber": "4",
+        "estimated": 0
+    },
+    {
+        "destination": "Augsburg Hbf",
+        "lineNumber": "4",
+        "estimated": 0
+    },
+    {
+        "destination": "Augsburg, Josefinum",
+        "lineNumber": "2",
+        "estimated": 4
+    },
+    {
+        "destination": "Haunstetten, Nord",
+        "lineNumber": "2",
+        "estimated": 3
+    },
+    {
+        "destination": "Oberhausen, Nord P+R",
+        "lineNumber": "4",
+        "estimated": 6
+    },
+    {
+        "destination": "Augsburg Hbf",
+        "lineNumber": "4",
+        "estimated": 7
+    },
+    {
+        "destination": "Augsburg, Josefinum",
+        "lineNumber": "2",
+        "estimated": 9
+    },
+    {
+        "destination": "Haunstetten, Nord",
+        "lineNumber": "2",
+        "estimated": 11
+    },
+    {
+        "destination": "Oberhausen, Nord P+R",
+        "lineNumber": "4",
+        "estimated": 13
+    },
+    {
+        "destination": "Augsburg Hbf",
+        "lineNumber": "4",
+        "estimated": 15
+    }
+]

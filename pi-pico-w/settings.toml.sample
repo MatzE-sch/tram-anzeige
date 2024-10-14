@@ -1,0 +1,4 @@
+# Deine WLAN Zugangsdaten hier ändern
+# Datei als settings.toml auf pico W speichern
+CIRCUITPY_WIFI_SSID="Your WiFi SSID Here"
+CIRCUITPY_WIFI_PASSWORD="Your WiFi Password Here"

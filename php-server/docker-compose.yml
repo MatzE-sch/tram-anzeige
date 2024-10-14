@@ -1,0 +1,9 @@
+services:
+  tramanzeige:
+    image: php:8.1-apache    # Uses the official PHP image with Apache
+    container_name: php-web-server
+    ports:
+      - "80:80"              # Maps port 80 on the host to port 80 in the container
+    volumes:
+      - ./src:/var/www/html  # Maps the 'src' directory on your host to the web root inside the container
+    restart: always          # Ensures the container restarts automatically if it stops

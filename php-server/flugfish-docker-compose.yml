@@ -1,0 +1,54 @@
+version: '3'
+services:
+
+  tramanzeige:
+    restart: unless-stopped
+    container_name: tramanzeige
+    image: php:8.1-apache
+    volumes:
+      - ./src:/var/www/html  # Maps the 'src' directory on your host to the web root inside the container
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.tramanzeige.entrypoints=http"
+      - "traefik.http.routers.tramanzeige.rule=Host(`tramanzeige.schu.gg`)"
+      # - "traefik.http.middlewares.tramanzeige-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.tramanzeige.middlewares=tramanzeige-https-redirect"
+      - "traefik.http.routers.tramanzeige-secure.entrypoints=http"
+      - "traefik.http.routers.tramanzeige-secure.rule=Host(`tramanzeige.schu.gg`)"
+      - "traefik.http.routers.tramanzeige-secure.tls=true"
+      - "traefik.http.routers.tramanzeige-secure.tls.certresolver=http"
+      - "traefik.http.routers.tramanzeige-secure.service=tramanzeige"
+      - "traefik.http.services.tramanzeige.loadbalancer.server.port=80"
+      - "traefik.docker.network=proxy"
+    ports:
+      - "8080:80"
+
+    networks:
+      - default
+      - proxy
+        #healthcheck:
+        #test: ["CMD-SHELL", "wget -O /dev/null http://localhost/abfahrten.php || exit 1"]
+        #interval: 2s
+        #timeout: 30s
+        #retries: 15
+
+  ipv6nat:
+    restart: unless-stopped
+    image: robbertkl/ipv6nat:0.4.4
+    privileged: true
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /lib/modules:/lib/modules:ro
+    network_mode: "host"
+
+networks:
+  proxy:
+    external: true
+  default:
+    driver: bridge
+    enable_ipv6: true
+    ipam:
+      driver: default
+      config:
+        - subnet: fd00:0016:4567::/48
+          gateway: fd00:0016:4567::1
