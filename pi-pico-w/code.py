@@ -183,7 +183,7 @@ def process_json(data):
             color = LINE_COLORS[stop['lineNumber']]
         except KeyError:
             print('unknown line:', stop['lineNumber'])
-            indicate_error_on_led()
+            #indicate_error_on_led()
             continue
 
         # Direction 
@@ -193,7 +193,7 @@ def process_json(data):
             direction = 'with_data_arrow'
         else:
             print('unknown direction:', stop['destination'])
-            indicate_error_on_led()
+            # indicate_error_on_led()
             continue
         
         # Time
@@ -246,21 +246,23 @@ while True:
     print("neue Runde...")
     try:
         main()
+        print('done')
+        pixels[PIXEL_FOR_STATION] = light_green.tupel()
+
+        # update visual every second
+        start_time = time.monotonic()
+        while time.monotonic() - start_time < REFRESH_AFTER:
+            process_json(stop_data)
+            pixels[PIXEL_FOR_STATION] = light_green.tupel()
+            time.sleep(0.5)
+            pixels[PIXEL_FOR_STATION] = dark_green.tupel()
+            time.sleep(0.5)
+        pixels[PIXEL_FOR_STATION] = Color.white().tupel()
+
     except Exception as e:
         print('caught')
         print(e)
         indicate_error_on_led()
         # print('err end')
         continue
-    print('done')
-    pixels[PIXEL_FOR_STATION] = light_green
-
-    # update visual every second
-    start_time = time.monotonic()
-    while time.monotonic() - start_time < REFRESH_AFTER:
-        process_json(stop_data)
-        pixels[PIXEL_FOR_STATION] = light_green
-        time.sleep(0.5)
-        pixels[PIXEL_FOR_STATION] = dark_green
-        time.sleep(0.5)
-    pixels[PIXEL_FOR_STATION] = Color.white().tupel()
+    
