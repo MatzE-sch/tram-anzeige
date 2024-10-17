@@ -54,7 +54,9 @@ function get_departure_times($url) {
         } else {
             $time = time_to_now($stopEvent["departureTimePlanned"]);
         }
-        if ($time > 16*60) { # 16 minutes 
+        
+        $max_time_in_future = 30*60; // 30 minutes
+        if ($time > $max_time_in_future) { 
             continue;
         }
         $departure[] = [
@@ -88,7 +90,7 @@ if (isset($_GET['stop_id'])) {
     $stop_id = 'de:09761:407';
 }
 
-// $url = "https://fahrtau  skunft.avv-augsburg.de/efa/XML_DM_REQUEST?outputFormat=rapidJSON&name_dm=de%3A09761%3A407&itdDateTimeDepArr=dep&mode=direct&useRealtime=1&deleteAssignedStops_dm=1&depSequence=10&calcOneDirection=1&ptOptionsActive=1&language=de&type_dm=any&useAllStops=1&inclMOT_5=true&maxTimeLoop=1&limit=10";
+// $url = "https://fahrtauskunft.avv-augsburg.de/efa/XML_DM_REQUEST?outputFormat=rapidJSON&name_dm=de%3A09761%3A407&itdDateTimeDepArr=dep&mode=direct&useRealtime=1&deleteAssignedStops_dm=1&depSequence=10&calcOneDirection=1&ptOptionsActive=1&language=de&type_dm=any&useAllStops=1&inclMOT_5=true&maxTimeLoop=1&limit=10";
 // Construct the URL with query parameters for the API request
 $url = "https://fahrtauskunft.avv-augsburg.de/efa/XML_DM_REQUEST?" . http_build_query([
     'outputFormat' => 'rapidJSON',          // The format of the output data
