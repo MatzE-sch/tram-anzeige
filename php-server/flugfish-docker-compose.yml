@@ -7,7 +7,7 @@ services:
     image: php:8.1-apache
     volumes:
       - ./src:/var/www/html  # Maps the 'src' directory on your host to the web root inside the container
-      - ./src/logs:/tmp/logs
+      - ./src/logs/error.log:/var/www/html/logs/error.log:rw
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.tramanzeige.entrypoints=http"
