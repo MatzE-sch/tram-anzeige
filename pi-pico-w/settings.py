@@ -6,12 +6,14 @@ STOP_ID = "de:09761:407"
 LINE_COLORS = {
     # '6': Color(255, 0, 255), # magenta
     '2': Color.blue(),
+    'B2': Color.blue(),
     '4': Color.red(),
 }
 DIRECTIONS = {
     'with_data_arrow': [
         'Augsburg, Josefinum',
-        'Oberhausen, Nord P+R'
+        'Oberhausen, Nord P+R',
+        'Oberh. Nord P+R'
     ],
     'against_data_arrow': [
         'Augsburg Hbf',
@@ -29,4 +31,4 @@ PIXEL_PIN = board.GP19
 
 
 # Diese Werte nach belieben anpassen
-BRIGHTNESS = 0.4
+BRIGHTNESS = 0.1

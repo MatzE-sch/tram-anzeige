@@ -193,6 +193,17 @@ def process_json(data):
             direction = 'with_data_arrow'
         else:
             print('unknown direction:', stop['destination'])
+            error_message = f"unknown direction: {stop['destination']}"
+            print(error_message)
+            try:
+                response = requests.post(
+                    "https://tramanzeige.schu.gg/error.php",
+                    # "https://tramanzeige.schu.gg/abfahrten.php",
+                    json={"error": error_message}
+                )
+                response.close()
+            except Exception as e:
+                print("Failed to report error to server:", e)
             # indicate_error_on_led()
             continue
         
