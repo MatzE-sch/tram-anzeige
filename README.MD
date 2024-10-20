@@ -24,17 +24,23 @@ weils oft pressiert, und man nicht immer auf das handy schauen will!
     - Wandern zur mitte
     - Abstand 5 LEDs = in 5 Minuten fährt die tram an der Wertachbrücke ab
 
-## Selbst anpassen?
-Wlan in `settings.toml` auf raspi pico w speichern  
-Libraries kopieren  
-`color.py`, `code.py` und `settings.py` auf pico copieren    
-`settings.py` auf neuen Bedarf anpassen  
+## Installation
+- Circuit Python auf Pico W installieren: [circuitpython Dwonloadseite](https://circuitpython.org/board/raspberry_pi_pico_w/)
+- dateien von `pi-pico-w/` auf `CIRCUITPY` kopieren
+  - Wlan SSID + Passwort in `settings.toml` auf Pico W speichern (Siehe [settings.toml.sample](pi-pico-w/settings.toml.sample))
+  - [Libraries](pi-pico-w/lib) kopieren
+  - [`color.py`](pi-pico-w/color.py), [`code.py`](pi-pico-w/code.py) und [`settings.py`](pi-pico-w/settings.py) auf Pico W kopieren    
+  - [`settings.py`](pi-pico-w/settings.py) auf neuen Bedarf anpassen
+
+### Selbst anpassen?
+Normal Sollte alles notwendige in [`settings.py`](pi-pico-w/settings.py) und `settings.toml` anpassbar sein.
+Gerne auch in code.py vorbeischauen, oder Farben in [`colors.py`](pi-pico-w/colors.py) anpassen ;) 
 
 ## wie geht des?
 
-1. Daten von der Station Wertachbrücke abrufen - kleines PHP Script
+1. Daten von der Station z.B. Wertachbrücke abrufen - kleines PHP Script
 2. Raspberry Pico W - ruft das ab
-3. Anzeige auf einem 31-Pixel NeoPixel Streifen
+3. Anzeige auf einem NeoPixel Streifen
 
 ## stark inspiriert an:
 https://github.com/KidsLabDe/kidslab-tram  
