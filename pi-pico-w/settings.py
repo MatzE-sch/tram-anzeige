@@ -25,8 +25,8 @@ DIRECTIONS = {
 
 
 # Diese Werte für deinen LED Streifen anpassen
-NUM_PIXELS = 31
-PIXEL_FOR_STATION = 15 # Der Pixel der die Haltestelle repräsentiert
+NUM_PIXELS = 61
+PIXEL_FOR_STATION = 30 # Der Pixel der die Haltestelle repräsentiert
 PIXEL_PIN = board.GP19
 SECONDS_PER_LED = 30
 
