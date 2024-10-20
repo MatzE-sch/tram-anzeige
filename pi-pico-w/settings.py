@@ -6,7 +6,7 @@ STOP_ID = "de:09761:407"
 LINE_COLORS = {
     # '6': Color(255, 0, 255), # magenta
     '2': Color.blue(),
-    'B2': Color.blue(),
+    'B2': Color.cyan(),
     '4': Color.red(),
 }
 DIRECTIONS = {
