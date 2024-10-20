@@ -209,7 +209,7 @@ def process_json(data):
         
         # Time
         seconds_to_stop = stop['estimated'] - (time.monotonic() - time_of_data)
-        minutes = round(seconds_to_stop / 60) # rounds to nearest minute
+        minutes = round(seconds_to_stop / SECONDS_PER_LED) # rounds to nearest minute
 
         # Put Time, Pixe, Direction together
         pixel = minutes

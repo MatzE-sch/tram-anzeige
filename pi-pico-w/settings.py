@@ -28,6 +28,7 @@ DIRECTIONS = {
 NUM_PIXELS = 31
 PIXEL_FOR_STATION = 15 # Der Pixel der die Haltestelle repräsentiert
 PIXEL_PIN = board.GP19
+SECONDS_PER_LED = 30
 
 
 # Diese Werte nach belieben anpassen
