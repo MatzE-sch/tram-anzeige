@@ -32,4 +32,4 @@ SECONDS_PER_LED = 30
 
 
 # Diese Werte nach belieben anpassen
-BRIGHTNESS = 0.1
+BRIGHTNESS = 0.05

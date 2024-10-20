@@ -19,6 +19,32 @@ class Color:
     def black():
         return Color(0, 0, 0)
     
+    @staticmethod
+    def dark_green():
+        return Color(0, 100, 0)
+    
+    @staticmethod
+    def yellow():
+        return Color(127, 127, 0)
+    
+    @staticmethod
+    def cyan():
+        return Color(0, 127, 127)
+    
+    @staticmethod
+    def warning():
+        return Color.yellow()
+    
+    @staticmethod
+    def station_color1():
+        return Color.green()
+    
+    @staticmethod
+    def station_color2():
+        return Color.dark_green()
+    
+
+    
     def __init__(self, red, green, blue):
         self.red = red
         self.green = green

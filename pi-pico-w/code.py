@@ -19,14 +19,14 @@ WIFI_PW = os.getenv('CIRCUITPY_WIFI_PASSWORD')
 DATA_SRC = 'https://tramanzeige.schu.gg/abfahrten.php?stop_id=' + STOP_ID
 REFRESH_AFTER = 10 # seconds
 
+light_green = Color(0, 255, 0)
+dark_green = Color(0, 100, 0)
 
 
 # NeoPixel initialisieren
 pixels = neopixel.NeoPixel(PIXEL_PIN, NUM_PIXELS, brightness=BRIGHTNESS)#, auto_write=True) # TODO: no autowrite?
 
 LED_STRIP = None
-
-stop_data = None
 
 def reset_strip_array():
     global LED_STRIP
@@ -62,7 +62,6 @@ def pixel_clear():
     pixels.fill(Color.black().tupel())
 
 reset_strip_array()
-time_of_data = None
 
 # pixels init
 push_strip(Color(255, 170, 0))
@@ -156,6 +155,7 @@ def fetch_json(url):
 def process_json(data):
     reset_strip_array()
     # print('process_json')
+    did_warning_occur = False
     for stop in data:
         # defaults:
         pixel = 0
@@ -195,15 +195,17 @@ def process_json(data):
             print('unknown direction:', stop['destination'])
             error_message = f"unknown direction: {stop['destination']}"
             print(error_message)
-            try:
-                response = requests.post(
-                    "https://tramanzeige.schu.gg/error.php",
-                    # "https://tramanzeige.schu.gg/abfahrten.php",
-                    json={"error": error_message}
-                )
-                response.close()
-            except Exception as e:
-                print("Failed to report error to server:", e)
+            did_warning_occur = True
+
+            # try:
+            #     response = requests.post(
+            #         "https://tramanzeige.schu.gg/error.php",
+            #         # "https://tramanzeige.schu.gg/abfahrten.php",
+            #         json={"error": error_message}
+            #     )
+            #     response.close()
+            # except Exception as e:
+            #     print("Failed to report error to server:", e)
             # indicate_error_on_led()
             continue
         
@@ -217,8 +219,11 @@ def process_json(data):
             pixel *= -1
         pixel_add(pixel, color)
 
-    LED_STRIP[PIXEL_FOR_STATION] = Color.green() # wertachbrücke
+    station_color = Color.station_color1() if not did_warning_occur else Color.warning()
+    LED_STRIP[PIXEL_FOR_STATION] = station_color
     write_strip()
+    
+    return did_warning_occur
 
 def color_chase(color, wait):
     pixels[PIXEL_FOR_STATION] = Color.white().tupel()
@@ -237,37 +242,32 @@ def indicate_error_on_led():
         pixels.show()
         time.sleep(0.5)
 
-def main():
-    global stop_data
-    global time_of_data
-
+def fetch_data():
     # print('fetch')
-    json_data = fetch_json(DATA_SRC)
+    data = fetch_json(DATA_SRC)
     time_of_data = time.monotonic()
-    stop_data = json_data
-    # print('process')
-    process_json(json_data)
-    pixels[PIXEL_FOR_STATION] = Color.green().tupel()
+    return time_of_data, data
 
 
-light_green = Color(0, 255, 0)
-dark_green = Color(0, 100, 0)
+
 
 while True:
     print("neue Runde...")
     try:
-        main()
+        time_of_data, data = fetch_data()
         print('done')
-        pixels[PIXEL_FOR_STATION] = light_green.tupel()
+        # pixels[PIXEL_FOR_STATION] = Color.station_color2().tupel()
+        warning = process_json(data)
 
         # update visual every second
         start_time = time.monotonic()
         while time.monotonic() - start_time < REFRESH_AFTER:
-            process_json(stop_data)
-            pixels[PIXEL_FOR_STATION] = light_green.tupel()
             time.sleep(0.5)
-            pixels[PIXEL_FOR_STATION] = dark_green.tupel()
+            pixels[PIXEL_FOR_STATION] = Color.station_color2().tupel()
             time.sleep(0.5)
+            process_json(data)
+            pixels[PIXEL_FOR_STATION] = Color.station_color1().tupel()
+
         pixels[PIXEL_FOR_STATION] = Color.white().tupel()
 
     except Exception as e:
