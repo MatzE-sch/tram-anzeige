@@ -8,9 +8,9 @@
         {
             "label": "CircuitPython copy",
             "type": "shell",
-            "command": "/home/matze/programmieren/mys-mentoren-treff/.vscode/cp_copy.py",
+            "command": "${workspaceRoot}/.vscode/cp_copy.py",
             "args": [
-                // "--verbose",
+                "--verbose",
                 // "--verbose",
                 // "--verbose",
                 "--filename=${file}",
@@ -37,9 +37,13 @@
         {
             "label": "CircuitPython copy as main.py",
             "type": "shell",
-            "command": "/home/matze/programmieren/mys-mentoren-treff/.vscode/cp_copy.py",
+            "command": "${workspaceRoot}.vscode/cp_copy.py",
             "args": [
-                "--verbose",
+                // "--verbose",
+                // "--verbose",
+                // "--verbose",
+                // "--verbose",
+                // "-v",
                 "--filename=${file}",
                 "--filename_project=${relativeFile}",
                 "--path_project=${workspaceFolder}",
@@ -63,7 +67,7 @@
         {
             "label": "CircuitPython copy as code.py",
             "type": "shell",
-            "command": "/home/matze/programmieren/mys-mentoren-treff/.vscode/cp_copy.py",
+            "command": "${workspaceRoot}/.vscode/cp_copy.py",
             "args": [
                 "--verbose",
                 "--filename=${file}",
@@ -89,7 +93,7 @@
         {
             "label": "CircuitPython copy as lib",
             "type": "shell",
-            "command": "/home/matze/programmieren/mys-mentoren-treff/.vscode/cp_copy.py",
+            "command": "${workspaceRoot}/.vscode/cp_copy.py",
             "args": [
                 "--verbose",
                 "--filename=${file}",

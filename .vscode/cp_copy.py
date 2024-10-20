@@ -283,6 +283,8 @@ class CPCopy:
 
         if destination_filename:
             destination = os.path.join(self.path_target, destination_filename)
+            # print('matze debug destination filename', destination_filename)
+            # destination = destination_filename
         else:
             p = pathlib.Path(self.filename_project)
             destination_wout_fw_subfolder = p
@@ -298,15 +300,17 @@ class CPCopy:
             ]:
                 destination_wout_fw_subfolder = pathlib.Path(*p.parts[1:])
 
-            if lib:
-                destination = os.path.join(
-                    self.path_target, self.path_lib, destination_wout_fw_subfolder
-                )
-            else:
-                # destination = os.path.join(self.path_target, self.filename)
-                destination = os.path.join(
-                    self.path_target, destination_wout_fw_subfolder
-                )
+            destination = os.path.join(self.path_target, self.filename)
+
+            # if lib:
+            #     destination = os.path.join(
+            #         self.path_target, self.path_lib, destination_wout_fw_subfolder
+            #     )
+            # else:
+            #     # destination = os.path.join(self.path_target, self.filename)
+            #     destination = os.path.join(
+            #         self.path_target, destination_wout_fw_subfolder
+            #     )
         destination_abs = os.path.abspath(destination)
 
         if self.verbose > self.VERBOSE_DEBUG:
