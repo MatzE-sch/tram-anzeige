@@ -17,14 +17,11 @@ WIFI_PW = os.getenv('CIRCUITPY_WIFI_PASSWORD')
 
 # Datenquelle, nur ändern falls du selber einen Server betreibst
 DATA_SRC = 'https://tramanzeige.schu.gg/abfahrten.php?stop_id=' + STOP_ID
-REFRESH_AFTER = 10 # seconds
-
-light_green = Color(0, 255, 0)
-dark_green = Color(0, 100, 0)
-
+REFRESH_AFTER = 20 # seconds
 
 # NeoPixel initialisieren
-pixels = neopixel.NeoPixel(PIXEL_PIN, NUM_PIXELS, brightness=BRIGHTNESS)#, auto_write=True) # TODO: no autowrite?
+pixels = neopixel.NeoPixel(PIXEL_PIN, NUM_PIXELS, brightness=BRIGHTNESS)
+print(NUM_PIXELS, ' pixels on pin ', PIXEL_PIN)
 
 LED_STRIP = None
 
@@ -52,23 +49,22 @@ def print_strip_to_serial():
     print(strip_visual)
 
 def write_strip():
-    # pixel_clear()
     pixels[:] = [color.tupel() for color in LED_STRIP]
     pixels.show()
     print_strip_to_serial()
     
-
-def pixel_clear():
-    pixels.fill(Color.black().tupel())
-
 reset_strip_array()
 
 # pixels init
 push_strip(Color(255, 170, 0))
 
-def reset_microcontroller():
-    print("Resetting microcontroller in 10 seconds")
-    pixels[PIXEL_FOR_STATION] = Color.black().tupel()
+def reset_microcontroller(wait_seconds = 10):
+    print(f"Resetting microcontroller in {wait_seconds} seconds")
+    for _ in range(wait_seconds):
+        pixels[PIXEL_FOR_STATION] = Color.red().tupel()
+        time.sleep(0.5)
+        pixels[PIXEL_FOR_STATION] = Color.black().tupel()
+        time.sleep(0.5)
     microcontroller.reset()
 
 try:
@@ -86,8 +82,7 @@ except:
     print('Keine Verbindung zum WLAN aufgebaut')
     print("Resetting microcontroller in 10 seconds")
     push_strip(Color.red())
-    time.sleep(10)
-    reset_microcontroller()
+    reset_microcontroller(30)
 
 pool = socketpool.SocketPool(wifi.radio)
 requests = adafruit_requests.Session(pool, ssl.create_default_context())
@@ -106,19 +101,6 @@ def pixel_add(pixel, color):
         # print(f'pixel {pixel} out of range')
         # print(e)
         pass
-    except Exception as e:
-        print('exception hier zur hölle')
-        print(e)
-
-def scale_brightness(input_value, gamma=5):
-    """Scales the input brightness to appear linear to the human eye."""
-    # Ensure input_value is within the expected range
-    input_value = max(0, min(input_value, 1))
-    input_value = 1 - input_value
-    # Apply gamma correction
-    corrected_output = input_value ** (1 / gamma)
-    # return corrected_output
-    return 1 - corrected_output
 
 # JSON-Daten von URL abrufen
 def fetch_json(url):
@@ -189,7 +171,6 @@ def process_json(data):
             color = LINE_COLORS[stop['lineNumber']]
         except KeyError:
             print('unknown line:', stop['lineNumber'])
-            #indicate_error_on_led()
             continue
 
         # Direction 
@@ -203,16 +184,6 @@ def process_json(data):
             print(error_message)
             did_warning_occur = True
 
-            # try:
-            #     response = requests.post(
-            #         "https://tramanzeige.schu.gg/error.php",
-            #         # "https://tramanzeige.schu.gg/abfahrten.php",
-            #         json={"error": error_message}
-            #     )
-            #     response.close()
-            # except Exception as e:
-            #     print("Failed to report error to server:", e)
-            # indicate_error_on_led()
             continue
         
         # Time
@@ -239,15 +210,6 @@ def color_chase(color, wait):
         time.sleep(wait)
     time.sleep(wait)
 
-def indicate_error_on_led():
-    for _ in range(5):
-        pixels.fill((255, 0, 0))  # Red color
-        pixels.show()
-        time.sleep(0.5)
-        pixels.fill((0, 0, 0))  # Turn off
-        pixels.show()
-        time.sleep(0.5)
-
 def fetch_data():
     # print('fetch')
     data = fetch_json(DATA_SRC)
@@ -261,8 +223,6 @@ while True:
     print("neue Runde...")
     try:
         time_of_data, data = fetch_data()
-        print('done')
-        # pixels[PIXEL_FOR_STATION] = Color.station_color2().tupel()
         warning = process_json(data)
 
         # update visual every second
@@ -279,7 +239,6 @@ while True:
     except Exception as e:
         print('caught')
         print(e)
-        indicate_error_on_led()
-        # print('err end')
+        reset_microcontroller(10)
         continue
     
