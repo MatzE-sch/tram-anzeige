@@ -12,6 +12,7 @@ LINE_COLORS = {
 DIRECTIONS = {
     'with_data_arrow': [
         'Augsburg, Josefinum',
+        'Stadtbergen, Augsburg West P+R',
         'Oberhausen, Nord P+R',
         'Oberh. Nord P+R'
     ],
