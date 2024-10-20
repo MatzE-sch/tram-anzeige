@@ -126,7 +126,12 @@ def fetch_json(url):
         # print('get')
         # print('url', url)
         response = requests.get(url)
-        data = response.json()
+        try:
+            data = response.json()
+        except ValueError as json_error:
+            print("JSON Decode Error:\n", str(json_error))
+            print("Response content:\n", response.text)
+            raise
         # print('data')
         # print(data)
         # example:
@@ -136,6 +141,7 @@ def fetch_json(url):
         #   ...
         # ]
         response.close()
+
     except Exception as e:
         print("Error:\n", str(e))
         print("Resetting microcontroller in 10 seconds")
