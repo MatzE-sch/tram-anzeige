@@ -28,11 +28,6 @@ services:
     networks:
       - default
       - proxy
-        #healthcheck:
-        #test: ["CMD-SHELL", "wget -O /dev/null http://localhost/abfahrten.php || exit 1"]
-        #interval: 2s
-        #timeout: 30s
-        #retries: 15
 
   ipv6nat:
     restart: unless-stopped
