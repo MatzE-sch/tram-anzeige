@@ -1,0 +1,554 @@
+{
+    "serverInfo": {
+        "controllerVersion": "10.6.20.30",
+        "serverID": "DEF-EFA-BAY05-P",
+        "virtDir": "avv_web",
+        "serverTime": "2024-10-21T02:59:06",
+        "calcTime": 428.215,
+        "logRequestId": "ce82417a118825e3"
+    },
+    "version": "10.5.17.3",
+    "systemMessages": [],
+    "locations": [
+        {
+            "id": "de:09761:407",
+            "isGlobalId": true,
+            "name": "Augsburg, Wertachbrücke",
+            "disassembledName": "Wertachbrücke",
+            "coord": [
+                48.37891,
+                10.881904
+            ],
+            "type": "stop",
+            "matchQuality": 100000,
+            "isBest": true,
+            "parent": {
+                "id": "placeID:9761000:1",
+                "name": "Augsburg",
+                "type": "locality"
+            },
+            "assignedStops": [
+                {
+                    "id": "de:09761:407",
+                    "isGlobalId": true,
+                    "name": "Augsburg, Wertachbrücke",
+                    "disassembledName": "Wertachbrücke",
+                    "type": "stop",
+                    "coord": [
+                        48.37891,
+                        10.881904
+                    ],
+                    "parent": {
+                        "name": "Augsburg",
+                        "type": "locality"
+                    },
+                    "productClasses": [
+                        4,
+                        5
+                    ],
+                    "connectingMode": 100,
+                    "properties": {
+                        "stopId": "2000407"
+                    }
+                }
+            ],
+            "properties": {
+                "stopId": "2000407"
+            }
+        }
+    ],
+    "stopEvents": [
+        {
+            "location": {
+                "id": "de:09761:407:0:a",
+                "isGlobalId": true,
+                "name": "Augsburg, Wertachbrücke",
+                "disassembledName": "Bstg. a",
+                "type": "platform",
+                "pointType": "PLATFORM",
+                "coord": [
+                    48.379154,
+                    10.881563
+                ],
+                "properties": {
+                    "stopId": "2000407",
+                    "area": "0",
+                    "platform": "a",
+                    "platformName": "Bstg. a",
+                    "plannedPlatformName": "Bstg. a"
+                },
+                "parent": {
+                    "id": "de:09761:407",
+                    "isGlobalId": true,
+                    "name": "Augsburg, Wertachbrücke",
+                    "disassembledName": "Wertachbrücke",
+                    "type": "stop",
+                    "parent": {
+                        "id": "placeID:9761000:1",
+                        "name": "Augsburg",
+                        "type": "locality"
+                    },
+                    "properties": {
+                        "stopId": "2000407"
+                    }
+                }
+            },
+            "departureTimePlanned": "2024-10-21T02:40:00Z",
+            "departureTimeBaseTimetable": "2024-10-21T02:40:00Z",
+            "transportation": {
+                "id": "avg:03004: :R:j24",
+                "name": "Straßenbahn 4",
+                "number": "4",
+                "product": {
+                    "id": 3,
+                    "class": 4,
+                    "name": "Straßenbahn",
+                    "iconId": 4
+                },
+                "destination": {
+                    "id": "2000422",
+                    "name": "Oberhausen, Nord P+R",
+                    "type": "stop"
+                },
+                "properties": {
+                    "tripCode": 411,
+                    "lineDisplay": "LINE"
+                },
+                "origin": {
+                    "id": "80000589",
+                    "name": "Augsburg Hbf",
+                    "type": "stop"
+                }
+            },
+            "infos": [
+                {
+                    "priority": "normal",
+                    "id": "22804_AVG",
+                    "version": 2,
+                    "type": "lineInfo",
+                    "properties": {
+                        "infoType": "lineInfo",
+                        "providerCode": "AVG",
+                        "partialNets": "avg"
+                    },
+                    "infoLinks": [
+                        {
+                            "urlText": "Linie 4 - Geänderter Umstieg in die Linie 21 wegen Bauarbeiten in der Ulmer Straße vom 15. Juli bis voraussichtlich 15. November 2024",
+                            "url": "http://ICS.defas-fgi.de\\      ics.defas-fgi.de:80/ics/XSLT_CM_SHOWADDINFO_REQUEST?infoID=22804_AVG&seqID=2",
+                            "content": "Linie 4 - Das Umsteigen in die und von der Linie 21 ist vom 15. Juli bis voraussichtlich 15. November 2024 nur an der Haltestelle \"Zollernstra&szlig;e\" m&ouml;glich.",
+                            "subtitle": "Linie 4 - Geänderter Umstieg in die Linie 21 wegen Bauarbeiten in der Ulmer Straße vom 15. Juli bis voraussichtlich 15. November 2024"
+                        }
+                    ]
+                }
+            ],
+            "previousLocations": [
+                {
+                    "isGlobalId": true,
+                    "id": "de:09761:100:33:P",
+                    "name": "Augsburg Hbf",
+                    "disassembledName": "Bstg. P",
+                    "type": "platform",
+                    "pointType": "PLATFORM",
+                    "coord": [
+                        48.365913,
+                        10.887977
+                    ],
+                    "niveau": 0,
+                    "parent": {
+                        "isGlobalId": true,
+                        "id": "de:09761:100",
+                        "name": "Augsburg Hbf",
+                        "disassembledName": "Hauptbahnhof",
+                        "type": "stop",
+                        "parent": {
+                            "id": "placeID:9761000:1",
+                            "name": "Augsburg",
+                            "type": "locality"
+                        },
+                        "properties": {
+                            "stopId": "80000589"
+                        },
+                        "coord": [
+                            48.365441,
+                            10.885569
+                        ],
+                        "niveau": 0
+                    },
+                    "productClasses": [
+                        0,
+                        4,
+                        5,
+                        6,
+                        11,
+                        13
+                    ],
+                    "properties": {
+                        "AREA_NIVEAU_DIVA": "0",
+                        "stoppingPointPlanned": "Bstg. P",
+                        "areaGid": "de:09761:100:33",
+                        "area": "31",
+                        "platform": "P",
+                        "platformName": "Bstg. P",
+                        "plannedPlatformName": "Bstg. P",
+                        "zone": "avv:1;omp:2010"
+                    },
+                    "departureTimePlanned": "2024-10-21T02:30:00Z"
+                },
+                {
+                    "isGlobalId": true,
+                    "id": "de:09761:101:31:A3",
+                    "name": "Augsburg, Königsplatz",
+                    "disassembledName": "Bstg. A3",
+                    "type": "platform",
+                    "pointType": "PLATFORM",
+                    "coord": [
+                        48.365841,
+                        10.894238
+                    ],
+                    "niveau": 0,
+                    "parent": {
+                        "isGlobalId": true,
+                        "id": "de:09761:101",
+                        "name": "Augsburg, Königsplatz",
+                        "disassembledName": "Königsplatz",
+                        "type": "stop",
+                        "parent": {
+                            "id": "placeID:9761000:1",
+                            "name": "Augsburg",
+                            "type": "locality"
+                        },
+                        "properties": {
+                            "stopId": "2000101"
+                        },
+                        "coord": [
+                            48.365393,
+                            10.894373
+                        ],
+                        "niveau": 0
+                    },
+                    "productClasses": [
+                        4,
+                        5,
+                        6,
+                        11
+                    ],
+                    "properties": {
+                        "AREA_NIVEAU_DIVA": "0",
+                        "stoppingPointPlanned": "Bstg. A3",
+                        "realtimeStatus": [
+                            "SCHEDULED_TIME_CHANGED"
+                        ],
+                        "areaGid": "de:09761:101:31",
+                        "area": "31",
+                        "platform": "A3",
+                        "platformName": "Bstg. A3",
+                        "plannedPlatformName": "Bstg. A3",
+                        "zone": "avv:1"
+                    },
+                    "arrivalTimePlanned": "2024-10-21T02:32:48Z",
+                    "departureTimePlanned": "2024-10-21T02:33:00Z"
+                },
+                {
+                    "isGlobalId": true,
+                    "id": "de:09761:105",
+                    "name": "Augsburg, Staatstheater",
+                    "disassembledName": "Staatstheater",
+                    "type": "stop",
+                    "coord": [
+                        48.369541,
+                        10.892468
+                    ],
+                    "niveau": 0,
+                    "parent": {
+                        "id": "placeID:9761000:1",
+                        "name": "Augsburg",
+                        "type": "locality"
+                    },
+                    "productClasses": [
+                        4,
+                        5,
+                        6,
+                        11
+                    ],
+                    "properties": {
+                        "stopId": "2000105",
+                        "AREA_NIVEAU_DIVA": "0",
+                        "realtimeStatus": [
+                            "SCHEDULED_TIME_CHANGED"
+                        ],
+                        "zone": "avv:1;omp:2010"
+                    },
+                    "arrivalTimePlanned": "2024-10-21T02:33:48Z",
+                    "departureTimePlanned": "2024-10-21T02:34:00Z"
+                },
+                {
+                    "isGlobalId": true,
+                    "id": "de:09761:588:0:a",
+                    "name": "Augsburg, Klinkertor",
+                    "disassembledName": "Bstg. a",
+                    "type": "platform",
+                    "pointType": "PLATFORM",
+                    "coord": [
+                        48.371463,
+                        10.889593
+                    ],
+                    "niveau": 0,
+                    "parent": {
+                        "isGlobalId": true,
+                        "id": "de:09761:588",
+                        "name": "Augsburg, Klinkertor",
+                        "disassembledName": "Klinkertor",
+                        "type": "stop",
+                        "parent": {
+                            "id": "placeID:9761000:1",
+                            "name": "Augsburg",
+                            "type": "locality"
+                        },
+                        "properties": {
+                            "stopId": "2000588"
+                        },
+                        "coord": [
+                            48.371427,
+                            10.889593
+                        ],
+                        "niveau": 0
+                    },
+                    "productClasses": [
+                        4,
+                        5
+                    ],
+                    "properties": {
+                        "AREA_NIVEAU_DIVA": "0",
+                        "stoppingPointPlanned": "Bstg. a",
+                        "realtimeStatus": [
+                            "SCHEDULED_TIME_CHANGED"
+                        ],
+                        "areaGid": "de:09761:588",
+                        "area": "0",
+                        "platform": "a",
+                        "platformName": "Bstg. a",
+                        "plannedPlatformName": "Bstg. a",
+                        "zone": "avv:10"
+                    },
+                    "arrivalTimePlanned": "2024-10-21T02:34:48Z",
+                    "departureTimePlanned": "2024-10-21T02:35:00Z"
+                },
+                {
+                    "isGlobalId": true,
+                    "id": "de:09761:532:51:a",
+                    "name": "Augsburg, Curt-Frenzel-Stadion",
+                    "disassembledName": "Bstg. a",
+                    "type": "platform",
+                    "pointType": "PLATFORM",
+                    "coord": [
+                        48.373796,
+                        10.885075
+                    ],
+                    "niveau": 0,
+                    "parent": {
+                        "isGlobalId": true,
+                        "id": "de:09761:532",
+                        "name": "Augsburg, Curt-Frenzel-Stadion",
+                        "disassembledName": "Curt-Frenzel-Stadion",
+                        "type": "stop",
+                        "parent": {
+                            "id": "placeID:9761000:1",
+                            "name": "Augsburg",
+                            "type": "locality"
+                        },
+                        "properties": {
+                            "stopId": "2000532"
+                        },
+                        "coord": [
+                            48.373748,
+                            10.884958
+                        ],
+                        "niveau": 0
+                    },
+                    "productClasses": [
+                        4,
+                        5,
+                        6
+                    ],
+                    "properties": {
+                        "AREA_NIVEAU_DIVA": "0",
+                        "stoppingPointPlanned": "Bstg. a",
+                        "realtimeStatus": [
+                            "SCHEDULED_TIME_CHANGED"
+                        ],
+                        "areaGid": "de:09761:532:51",
+                        "area": "51",
+                        "platform": "a",
+                        "platformName": "Bstg. a",
+                        "plannedPlatformName": "Bstg. a",
+                        "zone": "avv:10"
+                    },
+                    "arrivalTimePlanned": "2024-10-21T02:36:48Z",
+                    "departureTimePlanned": "2024-10-21T02:37:00Z"
+                },
+                {
+                    "isGlobalId": true,
+                    "id": "de:09761:401:0:a",
+                    "name": "Augsburg, Plärrer P+R",
+                    "disassembledName": "Bstg. a",
+                    "type": "platform",
+                    "pointType": "PLATFORM",
+                    "coord": [
+                        48.375908,
+                        10.883368
+                    ],
+                    "niveau": 0,
+                    "parent": {
+                        "isGlobalId": true,
+                        "id": "de:09761:401",
+                        "name": "Augsburg, Plärrer P+R",
+                        "disassembledName": "Plärrer P+R",
+                        "type": "stop",
+                        "parent": {
+                            "id": "placeID:9761000:1",
+                            "name": "Augsburg",
+                            "type": "locality"
+                        },
+                        "properties": {
+                            "stopId": "2000401"
+                        },
+                        "coord": [
+                            48.37561,
+                            10.883251
+                        ],
+                        "niveau": 0
+                    },
+                    "productClasses": [
+                        4,
+                        5
+                    ],
+                    "properties": {
+                        "AREA_NIVEAU_DIVA": "0",
+                        "stoppingPointPlanned": "Bstg. a",
+                        "realtimeStatus": [
+                            "SCHEDULED_TIME_CHANGED"
+                        ],
+                        "areaGid": "de:09761:401",
+                        "area": "0",
+                        "platform": "a",
+                        "platformName": "Bstg. a",
+                        "plannedPlatformName": "Bstg. a",
+                        "zone": "avv:10"
+                    },
+                    "arrivalTimePlanned": "2024-10-21T02:37:48Z",
+                    "departureTimePlanned": "2024-10-21T02:38:00Z"
+                }
+            ],
+            "onwardLocations": [
+                {
+                    "isGlobalId": true,
+                    "id": "de:09761:543:0:e",
+                    "name": "Augsburg, Drentwettstraße",
+                    "disassembledName": "Bstg. e",
+                    "type": "platform",
+                    "pointType": "PLATFORM",
+                    "coord": [
+                        48.382054,
+                        10.880467
+                    ],
+                    "niveau": 0,
+                    "parent": {
+                        "isGlobalId": true,
+                        "id": "de:09761:543",
+                        "name": "Augsburg, Drentwettstraße",
+                        "disassembledName": "Drentwettstraße",
+                        "type": "stop",
+                        "parent": {
+                            "id": "placeID:9761000:1",
+                            "name": "Augsburg",
+                            "type": "locality"
+                        },
+                        "properties": {
+                            "stopId": "2000543"
+                        },
+                        "coord": [
+                            48.382203,
+                            10.880494
+                        ],
+                        "niveau": 0
+                    },
+                    "productClasses": [
+                        4,
+                        5
+                    ],
+                    "properties": {
+                        "AREA_NIVEAU_DIVA": "0",
+                        "stoppingPointPlanned": "Bstg. e",
+                        "realtimeStatus": [
+                            "SCHEDULED_TIME_CHANGED"
+                        ],
+                        "areaGid": "de:09761:543",
+                        "area": "0",
+                        "platform": "e",
+                        "platformName": "Bstg. e",
+                        "plannedPlatformName": "Bstg. e",
+                        "zone": "avv:10|20"
+                    },
+                    "arrivalTimePlanned": "2024-10-21T02:41:48Z",
+                    "departureTimePlanned": "2024-10-21T02:42:00Z"
+                },
+                {
+                    "isGlobalId": true,
+                    "id": "de:09761:403:31:B",
+                    "name": "Augsburg, Bärenwirt/DRvS",
+                    "disassembledName": "Bstg. B",
+                    "type": "platform",
+                    "pointType": "PLATFORM",
+                    "coord": [
+                        48.385276,
+                        10.880655
+                    ],
+                    "niveau": 0,
+                    "parent": {
+                        "isGlobalId": true,
+                        "id": "de:09761:403",
+                        "name": "Augsburg, Bärenwirt/DRvS",
+                        "disassembledName": "Bärenwirt/DRvS",
+                        "type": "stop",
+                        "parent": {
+                            "id": "placeID:9761000:1",
+                            "name": "Augsburg",
+                            "type": "locality"
+                        },
+                        "properties": {
+                            "stopId": "2000403"
+                        },
+                        "coord": [
+                            48.385878,
+                            10.880709
+                        ],
+                        "niveau": 0
+                    },
+                    "productClasses": [
+                        4,
+                        5,
+                        6,
+                        11
+                    ],
+                    "properties": {
+                        "AREA_NIVEAU_DIVA": "0",
+                        "stoppingPointPlanned": "Bstg. B",
+                        "realtimeStatus": [
+                            "SCHEDULED_TIME_CHANGED"
+                        ],
+                        "areaGid": "de:09761:403:31",
+                        "area": "31",
+                        "platform": "B",
+                        "platformName": "Bstg. B",
+                        "plannedPlatformName": "Bstg. B",
+                        "zone": "avv:20"
+                    },
+                    "arrivalTimePlanned": "2024-10-21T02:42:48Z",
+                    "departureTimePlanned": "2024-10-21T02:43:00Z"
+                },
+                {
+                    "isGlobalId": true,
+                    "id": "de:09761:421:0:a",
+                    "name": "Augsburg, Zollernstraße",
+                    "disassembledName": "Bstg. a",
+                    "type":"platfor
