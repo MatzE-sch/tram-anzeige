@@ -26,7 +26,6 @@ function get_departure_times($url) {
     if ($response === FALSE) {
         throw new Exception("Fehler beim Abrufen der Daten von der URL");
     }
-    // echo $response;
     $data = json_decode($response, true);
     // error_log('data');  
     // file_put_contents('logfile.log', json_encode($data, JSON_PRETTY_PRINT), FILE_APPEND);
@@ -36,8 +35,6 @@ function get_departure_times($url) {
         if (isset($stopEvent["isCancelled"]) && $stopEvent["isCancelled"] === true) {
             continue;
         }
-        // echo '<pre>'; print_r($stopEvent["transportation"]["destination"]["name"]); echo '</pre>';
-        // echo '<pre>'; print_r($stopEvent["departureTimePlanned"]); echo '</pre>';
         $platform = $stopEvent["location"]["properties"]["platform"];
         $lineNumber = $stopEvent["transportation"]["number"];
         $destination = $stopEvent["transportation"]["destination"]["name"];
@@ -49,7 +46,6 @@ function get_departure_times($url) {
         // ?? Rotes tor ??
         
 
-        // echo '<pre>'; print_r($stopEvent); echo '</pre>';
         if (isset($stopEvent["departureTimeEstimated"])) {
             $time = time_to_now($stopEvent["departureTimeEstimated"]);
         } else {
