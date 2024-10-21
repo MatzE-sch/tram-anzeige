@@ -24,6 +24,16 @@ weils oft pressiert, und man nicht immer auf das handy schauen will!
     - Wandern zur mitte
     - Abstand 5 LEDs = in 5 Minuten fährt die tram an der Wertachbrücke ab
 
+## Benötigte Hardware
+- Raspberry Pi Pico W
+- LED-Streifen, einzel addressierbar (WS2812b)
+- n paar käbelchen zum anlöten
+- micro usb Kabel
+- Stromquelle
+### zum Basteln
+- Lötkolben
+- PC
+
 ## Installation
 - Circuit Python auf Pico W installieren: [circuitpython Dwonloadseite](https://circuitpython.org/board/raspberry_pi_pico_w/)
 - dateien von `pi-pico-w/` auf `CIRCUITPY` kopieren
