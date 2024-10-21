@@ -11,11 +11,11 @@
 
 ![](TramAnzeige.jpg)
 
-## warum?
+## Warum?
 
-weils oft pressiert, und man nicht immer auf das handy schauen will!
+Weil's oft pressiert, und man nicht immer auf das Handy schauen will!
 
-## was zeigts an?
+## Was zeigt's an?
 - Anzeige in Minuten für die nächste Tram
 - Rot = Linie 4
 - Blau = Linie 2
@@ -35,7 +35,7 @@ weils oft pressiert, und man nicht immer auf das handy schauen will!
 - PC
 
 ## Installation
-- Circuit Python auf Pico W installieren: [circuitpython Dwonloadseite](https://circuitpython.org/board/raspberry_pi_pico_w/)
+- Circuit Python auf Pico W installieren: [circuitpython Downloadseite](https://circuitpython.org/board/raspberry_pi_pico_w/)
 - dateien von `pi-pico-w/` auf `CIRCUITPY` kopieren
   - Wlan SSID + Passwort in `settings.toml` auf Pico W speichern (Siehe [settings.toml.sample](pi-pico-w/settings.toml.sample))
   - [Libraries](pi-pico-w/lib) kopieren
@@ -47,8 +47,8 @@ weils oft pressiert, und man nicht immer auf das handy schauen will!
     ```
 
 ### Selbst anpassen?
-Normal Sollte alles notwendige in [`settings.py`](pi-pico-w/settings.py) und `settings.toml` anpassbar sein.
-Gerne auch in code.py vorbeischauen, oder Farben in [`colors.py`](pi-pico-w/colors.py) anpassen ;) 
+Normal sollte alles Notwendige in [`settings.py`](pi-pico-w/settings.py) und `settings.toml` anpassbar sein.  
+Gerne auch in [`code.py`](pi-pico-w/code.py) vorbeischauen, oder Farben in [`colors.py`](pi-pico-w/colors.py) anpassen ;) 
 
 ## wie geht des?
 
