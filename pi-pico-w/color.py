@@ -29,7 +29,7 @@ class Color:
     
     @staticmethod
     def cyan():
-        return Color(0, 127, 127)
+        return Color(0, 90, 127)
     
     @staticmethod
     def warning():
