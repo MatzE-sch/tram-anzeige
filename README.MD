@@ -61,7 +61,7 @@ Danke @KingBBQ
 
 ## TODOs:
 - api key?
-- switch colors when trams overlap in same pixel
 - add daylightsensor ;)
-- better boot animation?
-- richtung über gleis bestimmen
+- led strip class
+  - better boot animation?
+  - switch colors when trams overlap in same pixel
