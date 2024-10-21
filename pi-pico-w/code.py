@@ -70,7 +70,6 @@ try:
 
 except:
     print('Keine Verbindung zum WLAN aufgebaut')
-    print("Resetting microcontroller in 10 seconds")
     push_strip(Color.red())
     reset_microcontroller(30)
 
@@ -166,9 +165,9 @@ def process_json(data):
 
         # Direction 
         try:
-            direction = LINE_COLORS[stop['platform']]
+            direction = DIRECTIONS[stop['platform']]
         except KeyError:
-            print('unknown platform:', stop['platform'])
+            print('unknown platform: ', stop['platform'])
             did_warning_occur = True
 
             continue
