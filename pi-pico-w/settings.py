@@ -10,18 +10,9 @@ LINE_COLORS = {
     '4': Color.red(),
 }
 DIRECTIONS = {
-    'with_data_arrow': [
-        'Augsburg, Josefinum',
-        'Stadtbergen, Augsburg West P+R',
-        'Oberhausen, Nord P+R',
-        'Oberh. Nord P+R'
-    ],
-    'against_data_arrow': [
-        'Augsburg Hbf',
-        'Haunstetten, Nord',
-        'Augsburg, Rotes Tor',
-        'Augsburg, Königsplatz'
-    ]
+    # platform
+    'a': 'with_data_arrow',  # richtung Oberhausen Nord P+R
+    'e': 'against_data_arrow'
 }
 
 

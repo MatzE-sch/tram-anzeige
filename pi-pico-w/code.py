@@ -171,17 +171,14 @@ def process_json(data):
             color = LINE_COLORS[stop['lineNumber']]
         except KeyError:
             print('unknown line:', stop['lineNumber'])
+            did_warning_occur = True
             continue
 
         # Direction 
-        if stop['destination'] in DIRECTIONS['against_data_arrow']:
-            direction = 'against_data_arrow'
-        elif stop['destination'] in DIRECTIONS['with_data_arrow']:
-            direction = 'with_data_arrow'
-        else:
-            print('unknown direction:', stop['destination'])
-            error_message = f"unknown direction: {stop['destination']}"
-            print(error_message)
+        try:
+            direction = LINE_COLORS[stop['platform']]
+        except KeyError:
+            print('unknown platform:', stop['platform'])
             did_warning_occur = True
 
             continue
