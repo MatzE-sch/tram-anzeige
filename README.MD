@@ -31,6 +31,10 @@ weils oft pressiert, und man nicht immer auf das handy schauen will!
   - [Libraries](pi-pico-w/lib) kopieren
   - [`color.py`](pi-pico-w/color.py), [`code.py`](pi-pico-w/code.py) und [`settings.py`](pi-pico-w/settings.py) auf Pico W kopieren    
   - [`settings.py`](pi-pico-w/settings.py) auf neuen Bedarf anpassen
+    - um deine STOP_ID herauszufinden kannst du [`what-is-my-stop-id.sh`](what-is-my-stop-id.sh) verwenden  
+    ```sh
+    ./what-is-my-stop-id.sh Wertachbrücke
+    ```
 
 ### Selbst anpassen?
 Normal Sollte alles notwendige in [`settings.py`](pi-pico-w/settings.py) und `settings.toml` anpassbar sein.
@@ -46,3 +50,8 @@ Gerne auch in code.py vorbeischauen, oder Farben in [`colors.py`](pi-pico-w/colo
 https://github.com/KidsLabDe/kidslab-tram  
 Danke @KingBBQ
 
+## TODOs:
+- api key?
+- switch colors when trams overlap in same pixel
+- add daylightsensor ;)
+- better boot animation?
