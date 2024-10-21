@@ -67,3 +67,13 @@ class Color:
 
     def tupel(self):
         return (self.red, self.green, self.blue)
+    
+    def dominant_channel(self):
+        if self.red == 0 and self.green == 0 and self.blue == 0:
+            return '-'
+        elif self.red >= self.green and self.red >= self.blue:
+            return 'R'
+        elif self.green >= self.red and self.green >= self.blue:
+            return 'G'
+        else:
+            return 'B'

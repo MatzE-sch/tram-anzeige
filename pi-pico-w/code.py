@@ -35,17 +35,7 @@ def push_strip(color):
     write_strip()
 
 def print_strip_to_serial():
-    def get_dominant_color(color):
-        if color.red == 0 and color.green == 0 and color.blue == 0:
-            return '-'
-        elif color.red >= color.green and color.red >= color.blue:
-            return 'R'
-        elif color.green >= color.red and color.green >= color.blue:
-            return 'G'
-        else:
-            return 'B'
-
-    strip_visual = ''.join(get_dominant_color(color) for color in LED_STRIP)
+    strip_visual = ''.join(color.dominant_channel() for color in LED_STRIP)
     print(strip_visual)
 
 def write_strip():
