@@ -32,7 +32,7 @@ weils oft pressiert, und man nicht immer auf das handy schauen will!
   - [`color.py`](pi-pico-w/color.py), [`code.py`](pi-pico-w/code.py) und [`settings.py`](pi-pico-w/settings.py) auf Pico W kopieren    
   - [`settings.py`](pi-pico-w/settings.py) auf neuen Bedarf anpassen
     - um deine STOP_ID herauszufinden kannst du [`what-is-my-stop-id.sh`](what-is-my-stop-id.sh) verwenden  
-    ```sh
+    ``` sh
     ./what-is-my-stop-id.sh Wertachbrücke
     ```
 
@@ -55,3 +55,4 @@ Danke @KingBBQ
 - switch colors when trams overlap in same pixel
 - add daylightsensor ;)
 - better boot animation?
+- richtung über gleis bestimmen
