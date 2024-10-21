@@ -20,13 +20,13 @@ Weil's oft pressiert, und man nicht immer auf das Handy schauen will!
 - Blau = Linie 2
 - Mitte = Wertachbrücke
 - Alle Lichter representieren Trams
-    - Wandern zur mitte
-    - Abstand 5 LEDs = in 5 Minuten fährt die tram an der Wertachbrücke ab
+    - Wandern zur Mitte
+    - Abstand 5 LEDs = in 5 Minuten fährt die Tram an der Wertachbrücke ab
 
 ## Benötigte Hardware
 - Raspberry Pi Pico W
 - LED-Streifen, einzel addressierbar (WS2812b)
-- n paar käbelchen zum anlöten
+- n paar Käbelchen zum anlöten
 - micro usb Kabel
 - Stromquelle
 ### zum Basteln
