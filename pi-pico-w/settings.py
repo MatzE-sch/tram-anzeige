@@ -1,5 +1,5 @@
 from color import Color
-import board
+import board # type: ignore
 
 # Diese Werte für deine Haltestelle anpassen
 STOP_ID = "de:09761:407"
