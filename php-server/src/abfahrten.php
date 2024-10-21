@@ -38,6 +38,7 @@ function get_departure_times($url) {
         }
         // echo '<pre>'; print_r($stopEvent["transportation"]["destination"]["name"]); echo '</pre>';
         // echo '<pre>'; print_r($stopEvent["departureTimePlanned"]); echo '</pre>';
+        $bahnsteig = $stopEvent["location"]["properties"]["platform"];
         $lineNumber = $stopEvent["transportation"]["number"];
         $destination = $stopEvent["transportation"]["destination"]["name"];
         // destination:
@@ -61,6 +62,7 @@ function get_departure_times($url) {
         }
         $departure[] = [
             "destination" => $destination,
+            "bahnsteig" => $bahnsteig,
             "lineNumber" => $lineNumber,
             "estimated" => $time,
         ];
