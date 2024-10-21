@@ -54,9 +54,11 @@ class Color:
         return f"Color({self.red}, {self.green}, {self.blue})"
 
     def __add__(self, other):
+        # mix colors
         return Color(self.red + other.red, self.green + other.green, self.blue + other.blue)
     
     def __mul__(self, scalar):
+        # scale color
         return Color(
             max(0, min(255, int(self.red * scalar))),
             max(0, min(255, int(self.green * scalar))),
