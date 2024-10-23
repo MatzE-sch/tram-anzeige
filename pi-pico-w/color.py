@@ -1,49 +1,28 @@
-class Color: 
-    @staticmethod
-    def red():
-        return Color(255, 0, 0)
+class Color:
+    red = (255, 0, 0)
+    green = (0, 255, 0)
+    blue = (0, 0, 255)
+    white = (127, 127, 127)
+    black = (0, 0, 0)
+    dark_green = (0, 100, 0)
+    yellow = (127, 127, 0)
+    cyan = (0, 90, 127)
+    
+    warning = yellow
+    station_color1 = green
+    station_color2 = dark_green
     
     @staticmethod
-    def green():
-        return Color(0, 255, 0)
-    
-    @staticmethod
-    def blue():
-        return Color(0, 0, 255)
-    
-    @staticmethod
-    def white():
-        return Color(127, 127, 127)
-    
-    @staticmethod
-    def black():
-        return Color(0, 0, 0)
-    
-    @staticmethod
-    def dark_green():
-        return Color(0, 100, 0)
-    
-    @staticmethod
-    def yellow():
-        return Color(127, 127, 0)
-    
-    @staticmethod
-    def cyan():
-        return Color(0, 90, 127)
-    
-    @staticmethod
-    def warning():
-        return Color.yellow()
-    
-    @staticmethod
-    def station_color1():
-        return Color.green()
-    
-    @staticmethod
-    def station_color2():
-        return Color.dark_green()
-    
-
+    def dominant_channel(color):
+        r,g,b = color
+        if r == 0 and g == 0 and b == 0:
+            return '-'
+        elif r >= g and r >= b:
+            return 'R'
+        elif g >= r and g >= b:
+            return 'G'
+        else:
+            return 'B'
     
     def __init__(self, red, green, blue):
         self.red = red
@@ -52,6 +31,9 @@ class Color:
 
     def __repr__(self):
         return f"Color({self.red}, {self.green}, {self.blue})"
+    
+    def __iter__(self):
+        return (self.red, self.green, self.blue)
 
     def __add__(self, other):
         # mix colors
@@ -65,15 +47,5 @@ class Color:
             max(0, min(255, int(self.blue * scalar)))
         )
 
-    def tupel(self):
+    def tuple(self):
         return (self.red, self.green, self.blue)
-    
-    def dominant_channel(self):
-        if self.red == 0 and self.green == 0 and self.blue == 0:
-            return '-'
-        elif self.red >= self.green and self.red >= self.blue:
-            return 'R'
-        elif self.green >= self.red and self.green >= self.blue:
-            return 'G'
-        else:
-            return 'B'
