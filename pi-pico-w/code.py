@@ -62,23 +62,24 @@ class LedStrip():
         self.pixels.fill(Color.black)
 
 
-    def push(self, color):
-        # print(color, self.pixels)
-        # print(type([color]), type(self.pixels[:-1]))
-        # print([color], list(self.pixels[:-1]))
-        self.pixels[:] = [color] + list(self.pixels[:-1]) # push in from left
+    def push_center(self, color):
+        half_pixels = list(self.pixels[self.station_led:])
+        print('half_pixels', half_pixels)
+        centered = half_pixels[::-1] + [color] + half_pixels
+        print('centered', centered)
+        self.pixels[:] = centered[1:-1] # push in from left
+        self.pixels.show()
 
 
     def pixel_add(self, pixel, color):
-        print('pixel', pixel, 'color', color)
         pixel = pixel + PIXEL_FOR_STATION
         try:
             if pixel < 0:
                 raise IndexError('pixel < 0')
             self.pixel_values[pixel].append(color)
         except IndexError as e:
-            print(f'pixel {pixel} out of range')
-            print(e)
+            # print(f'pixel {pixel} out of range')
+            # print(e)
             pass
         # self.show()
 
@@ -88,7 +89,7 @@ pixels = led_strip_tmp.pixels
     
 
 # pixels init
-led_strip_tmp.push((255, 170, 0))
+led_strip_tmp.push_center((255, 170, 0))
 
 def reset_microcontroller(wait_seconds = 10, led_strip=led_strip_tmp):
     print(f"Resetting microcontroller in {wait_seconds} seconds")
@@ -106,23 +107,23 @@ try:
     #  connect to SSID
     wifi.radio.connect(WIFI_SSID, WIFI_PW)
 
-    led_strip_tmp.push(Color.blue)
+    led_strip_tmp.push_center(Color.blue)
 
     print('Verbunden:', wifi.radio.ipv4_address)
     if wifi.radio.ipv4_address == None:
         raise Exception('No ipv4 address')
-    led_strip_tmp.push((0, 255, 255))
+    led_strip_tmp.push_center((0, 255, 255))
 
 except:
     print('Keine Verbindung zum WLAN aufgebaut')
-    led_strip_tmp.push(Color.red)
+    led_strip_tmp.push_center(Color.red)
     reset_microcontroller(30)
 
 pool = socketpool.SocketPool(wifi.radio)
 requests = adafruit_requests.Session(pool, ssl.create_default_context())
 
 
-led_strip_tmp.push((0, 255, 0))
+led_strip_tmp.push_center((0, 255, 0))
 
 
 
