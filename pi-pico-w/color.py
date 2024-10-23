@@ -17,6 +17,8 @@ class Color:
         r,g,b = color
         if r == 0 and g == 0 and b == 0:
             return '-'
+        elif r == g == b:
+            return 'W'
         elif r >= g and r >= b:
             return 'R'
         elif g >= r and g >= b:

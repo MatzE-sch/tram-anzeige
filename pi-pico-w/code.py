@@ -7,8 +7,6 @@ import neopixel
 import time
 import os
 import microcontroller
-import sys
-import traceback
 
 from color import Color
 from settings import *
@@ -45,12 +43,15 @@ class LedStrip():
     
     def __setitem__(self, pixel_id, color):
         pixel_id = pixel_id + self.station_led
+        print(pixel_id, color)
         self.pixel_values[pixel_id] = [color]
         self.show()
+        if pixel_id == self.station_led and Color.dominant_channel(color) == 'R':
+            raise IndexError('index = 0')
 
     def show(self):
         # print('pixel_values', self.pixel_values)
-        print('strip: ', led_strip_tmp)
+        print('strip: ', self)
 
         self.pixels[:] = [color_list[self.show_number % len(color_list)] if len(color_list) > 0 else Color.black for color_list in self.pixel_values]
         self.pixels.show()
@@ -87,15 +88,8 @@ class LedStrip():
             pass
         # self.show()
 
-led_strip_tmp = LedStrip(PIXEL_PIN, NUM_PIXELS, PIXEL_FOR_STATION)
 
-# pixels = led_strip_tmp.pixels
-    
-
-# pixels init
-led_strip_tmp.push_center((255, 170, 0))
-
-def reset_microcontroller(wait_seconds = 10, led_strip=led_strip_tmp):
+def reset_microcontroller(led_strip, wait_seconds = 10):
     print(f"Resetting microcontroller in {wait_seconds} seconds")
     for _ in range(wait_seconds):
         led_strip[PIXEL_FOR_STATION] = Color.red
@@ -107,32 +101,9 @@ def reset_microcontroller(wait_seconds = 10, led_strip=led_strip_tmp):
     led_strip.reset_pixels()
     microcontroller.reset()
 
-try:
-    #  connect to SSID
-    wifi.radio.connect(WIFI_SSID, WIFI_PW)
-
-    led_strip_tmp.push_center(Color.blue)
-
-    print('Verbunden:', wifi.radio.ipv4_address)
-    if wifi.radio.ipv4_address == None:
-        raise Exception('No ipv4 address')
-    led_strip_tmp.push_center((0, 255, 255))
-
-except:
-    print('Keine Verbindung zum WLAN aufgebaut')
-    led_strip_tmp.push_center(Color.red)
-    reset_microcontroller(30)
-
-pool = socketpool.SocketPool(wifi.radio)
-requests = adafruit_requests.Session(pool, ssl.create_default_context())
-
-
-led_strip_tmp.push_center((0, 255, 0))
-
-
 
 # JSON-Daten von URL abrufen
-def fetch_json(url):
+def fetch_json(requests, url, led_strip):
     try:
         # print('get')
         # print('url', url)
@@ -173,21 +144,21 @@ def fetch_json(url):
         print("Resetting microcontroller in 10 seconds")
         for _ in range(5):
             #  TODO: fix!!!
-            led_strip_tmp[PIXEL_FOR_STATION] = Color.red
+            led_strip[PIXEL_FOR_STATION] = Color.red
             # led_strip_tmp.show()
             time.sleep(0.5)
-            led_strip_tmp[PIXEL_FOR_STATION] = Color.black
+            led_strip[PIXEL_FOR_STATION] = Color.black
             # led_strip_tmp.show()
             time.sleep(0.5)
         # time.sleep(5)
-        reset_microcontroller()    
+        reset_microcontroller(led_strip)    
     return data
  
 
 # JSON-Daten verarbeiten
-def process_json(data):
+def process_json(led_strip, data, time_of_data):
 
-    led_strip_tmp.reset_pixel_values()
+    led_strip.reset_pixel_values()
 
     did_warning_occur = False
     for stop in data:
@@ -217,65 +188,96 @@ def process_json(data):
         
         # Time
         seconds_to_stop = stop['estimated'] - (time.monotonic() - time_of_data)
-        minutes = round(seconds_to_stop / SECONDS_PER_LED) # rounds to nearest minute
-        if minutes < 0:
+        pixel = round(seconds_to_stop / SECONDS_PER_LED) # rounds to nearest minute
+        if pixel <= 0:
             continue
 
-        # Put Time, Pixe, Direction together
-        pixel = minutes
         if direction == 'against_data_arrow':
             pixel *= -1
 
+        # Put Time, Pixe, Direction together
         # print('pixel', pixel, 'color', color, 'direction', direction)
-        led_strip_tmp.pixel_add(pixel, color)
+        led_strip.pixel_add(pixel, color)
 
 
     station_color = Color.station_color1 if not did_warning_occur else Color.warning
-    led_strip_tmp.pixel_add(0, station_color)
+    led_strip.pixel_add(0, station_color)
 
-    led_strip_tmp.show()
+    led_strip.show()
+    print('warning:', did_warning_occur)
 
     return did_warning_occur
 
 
-def fetch_data():
+def fetch_data(requests, led_strip):
     # print('fetch')
-    data = fetch_json(DATA_SRC)
+    data = fetch_json(requests, DATA_SRC, led_strip)
     time_of_data = time.monotonic()
     return time_of_data, data
 
 
 
+def main():
 
-while True:
-    print("neue Runde...")
+    led_strip = LedStrip(PIXEL_PIN, NUM_PIXELS, PIXEL_FOR_STATION)        
+
+    # pixels init
+    led_strip.push_center((255, 170, 0))
 
     try:
-        time_of_data, data = fetch_data()
-        warning = process_json(data)
-        
+        #  connect to SSID
+        wifi.radio.connect(WIFI_SSID, WIFI_PW)
 
-        # update visual every second
-        start_time = time.monotonic()
-        while time.monotonic() - start_time < REFRESH_AFTER-0.5:
-            time.sleep(0.5)
-            led_strip_tmp[0] = Color.station_color2
-            time.sleep(0.5)
-            # led_strip_tmp.show()
+        led_strip.push_center(Color.blue)
 
-            led_strip_tmp[0] = Color.station_color1
+        print('Verbunden:', wifi.radio.ipv4_address)
+        if wifi.radio.ipv4_address == None:
+            raise Exception('No ipv4 address')
+        led_strip.push_center((0, 255, 255))
+
+    except:
+        print('Keine Verbindung zum WLAN aufgebaut')
+        led_strip.push_center(Color.red)
+        reset_microcontroller(led_strip, 30)
+
+    pool = socketpool.SocketPool(wifi.radio)
+    requests = adafruit_requests.Session(pool, ssl.create_default_context())
+
+
+    led_strip.push_center((0, 255, 0))
+
+
+    while True:
+        print("neue Runde...")
+
+
+
+        try:
+            time_of_data, data = fetch_data(requests, led_strip)
+            warning = process_json(led_strip, data, time_of_data)
             
-        time.sleep(0.5)
 
-        led_strip_tmp[0] = Color.white
+            # update visual every second
+            start_time = time.monotonic()
+            while time.monotonic() - start_time < REFRESH_AFTER-0.5:
+                time.sleep(0.5)
+                led_strip[0] = Color.station_color2
+                time.sleep(0.5)
+                # led_strip_tmp.show()
 
-    except Exception as e:
+                led_strip[0] = Color.station_color1
+                
+            time.sleep(0.5)
 
-        traceback.print_exc(file=sys.stdout)
-        traceback.print_exc()
-        print('caught')
-        print(e)
+            led_strip[0] = Color.white
 
-        reset_microcontroller(10)
-        continue
-    
+        except Exception as e:
+
+            print('caught')
+            print(e)
+            raise e
+            reset_microcontroller(led_strip, 10)
+            continue
+        
+if __name__ == '__main__':
+    main()
