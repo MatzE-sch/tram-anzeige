@@ -143,13 +143,28 @@ def fetch_json(url):
             print("JSON Decode Error:\n", str(json_error))
             print("Response content:\n", response.text)
             raise
-        # print('data')
-        # print(data)
-        # example:
+        
+        # example: 
         # [
-        #   {"destination":"Augsburg, Josefinum","lineNumber":"2","estimated":9},
-        #   {"destination":"Oberhausen, Nord P+R","lineNumber":"4","estimated":297},
-        #   ...
+        #   {
+        #     "destination": "Augsburg, Josefinum",
+        #     "platform": "a",
+        #     "lineNumber": "2",
+        #     "estimated": 23
+        #   },
+        #   {
+        #     "destination": "Haunstetten, Nord",
+        #     "platform": "e",
+        #     "lineNumber": "2",
+        #     "estimated": 35
+        #   },
+        #   {
+        #     "destination": "Oberhausen, Nord P+R",
+        #     "platform": "a",
+        #     "lineNumber": "4",
+        #     "estimated": 323
+        #   },
+        #   {...}
         # ]
         response.close()
 
@@ -181,21 +196,6 @@ def process_json(data):
         color = None
         direction = None # invalid
 
-        # Sanitize
-        #print(item)
-        # example:  
-        # [
-        #   {"destination":"Augsburg, Josefinum","lineNumber":"2","estimated":9},
-        #   {"destination":"Oberhausen, Nord P+R","lineNumber":"4","estimated":297},
-        #   ...
-        # ]
-        # destinations:
-        # Augsburg Hbf
-        # Oberhausen, Nord P+R
-        # Augsburg, Josefinum
-        # Haunstetten, Nord
-        # print('stop', stop)
-
         # work with data
         # Line -> Color
         try:
@@ -206,6 +206,7 @@ def process_json(data):
             continue
 
         # Direction 
+        # platform -> direction
         try:
             direction = DIRECTIONS[stop['platform']]
         except KeyError:
@@ -217,6 +218,8 @@ def process_json(data):
         # Time
         seconds_to_stop = stop['estimated'] - (time.monotonic() - time_of_data)
         minutes = round(seconds_to_stop / SECONDS_PER_LED) # rounds to nearest minute
+        if minutes < 0:
+            continue
 
         # Put Time, Pixe, Direction together
         pixel = minutes
@@ -229,7 +232,7 @@ def process_json(data):
 
     station_color = Color.station_color1 if not did_warning_occur else Color.warning
     led_strip_tmp.pixel_add(0, station_color)
-    
+
     led_strip_tmp.show()
 
     return did_warning_occur
