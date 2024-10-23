@@ -28,10 +28,11 @@ REFRESH_AFTER = 20 # seconds
 
 class LedStrip():
     def __init__(self, io_pin, num_leds, station_led):
-        self.pixels = neopixel.NeoPixel(io_pin, num_leds, brightness=BRIGHTNESS, auto_write=True)
+        self.pixels = neopixel.NeoPixel(io_pin, num_leds, brightness=BRIGHTNESS, auto_write=False)
         self.station_led = station_led
         # self.pixel_values = [[] for _ in range(num_leds)]
         self.reset_pixel_values()
+        self.show_number = 0
 
     def __repr__(self):
         return ''.join(Color.dominant_channel(color) for color in self.pixels)
@@ -42,16 +43,19 @@ class LedStrip():
             raise IndexError('index on hardware leds < 0')
         return self.pixel_values[key]
     
-    def __setitem__(self, key, value):
-        key = key + self.station_led
-        self.pixel_values[key] = value
+    def __setitem__(self, pixel_id, color):
+        pixel_id = pixel_id + self.station_led
+        self.pixel_values[pixel_id] = [color]
+        self.show()
 
     def show(self):
-        # print('len pixels', len(self.pixels))
-        # print('len pixel_values', len(self.pixel_values))
-        print('pixel_values', self.pixel_values)
-        self.pixels[:] = [color_list[0] if len(color_list) > 0 else Color.black for color_list in self.pixel_values]
+        # print('pixel_values', self.pixel_values)
+        print('strip: ', led_strip_tmp)
+
+        self.pixels[:] = [color_list[self.show_number % len(color_list)] if len(color_list) > 0 else Color.black for color_list in self.pixel_values]
         self.pixels.show()
+        print('show_number', self.show_number)
+        self.show_number += 1
 
     def reset_pixel_values(self):
         # reset the pixel values for animation and preparation of new data
@@ -64,9 +68,9 @@ class LedStrip():
 
     def push_center(self, color):
         half_pixels = list(self.pixels[self.station_led:])
-        print('half_pixels', half_pixels)
+        # print('half_pixels', half_pixels)
         centered = half_pixels[::-1] + [color] + half_pixels
-        print('centered', centered)
+        # print('centered', centered)
         self.pixels[:] = centered[1:-1] # push in from left
         self.pixels.show()
 
@@ -85,7 +89,7 @@ class LedStrip():
 
 led_strip_tmp = LedStrip(PIXEL_PIN, NUM_PIXELS, PIXEL_FOR_STATION)
 
-pixels = led_strip_tmp.pixels
+# pixels = led_strip_tmp.pixels
     
 
 # pixels init
@@ -153,11 +157,12 @@ def fetch_json(url):
         print("Error:\n", str(e))
         print("Resetting microcontroller in 10 seconds")
         for _ in range(5):
-            pixels[PIXEL_FOR_STATION] = Color.red
-            pixels.show()
+            #  TODO: fix!!!
+            led_strip_tmp[PIXEL_FOR_STATION] = Color.red
+            # led_strip_tmp.show()
             time.sleep(0.5)
-            pixels[PIXEL_FOR_STATION] = Color.black
-            pixels.show()
+            led_strip_tmp[PIXEL_FOR_STATION] = Color.black
+            # led_strip_tmp.show()
             time.sleep(0.5)
         # time.sleep(5)
         reset_microcontroller()    
@@ -169,7 +174,6 @@ def process_json(data):
 
     led_strip_tmp.reset_pixel_values()
 
-    # print('process_json')
     did_warning_occur = False
     for stop in data:
         # defaults:
@@ -224,17 +228,12 @@ def process_json(data):
 
 
     station_color = Color.station_color1 if not did_warning_occur else Color.warning
-    led_strip_tmp[PIXEL_FOR_STATION] = station_color
-    print('strip: ', led_strip_tmp)
+    led_strip_tmp.pixel_add(0, station_color)
+    
+    led_strip_tmp.show()
+
     return did_warning_occur
 
-def color_chase(color, wait):
-    pixels[PIXEL_FOR_STATION] = Color.white
-    for i in range(NUM_PIXELS//2):
-        pixels[i] = color
-        pixels[NUM_PIXELS-1-i] = color
-        time.sleep(wait)
-    time.sleep(wait)
 
 def fetch_data():
     # print('fetch')
@@ -251,20 +250,21 @@ while True:
     try:
         time_of_data, data = fetch_data()
         warning = process_json(data)
-        led_strip_tmp.show()
+        
 
         # update visual every second
         start_time = time.monotonic()
-        while time.monotonic() - start_time < REFRESH_AFTER:
+        while time.monotonic() - start_time < REFRESH_AFTER-0.5:
             time.sleep(0.5)
-            pixels[PIXEL_FOR_STATION] = Color.station_color2
+            led_strip_tmp[0] = Color.station_color2
             time.sleep(0.5)
-            process_json(data)
-            led_strip_tmp.show()
+            # led_strip_tmp.show()
 
-            pixels[PIXEL_FOR_STATION] = Color.station_color1
+            led_strip_tmp[0] = Color.station_color1
+            
+        time.sleep(0.5)
 
-        pixels[PIXEL_FOR_STATION] = Color.white
+        led_strip_tmp[0] = Color.white
 
     except Exception as e:
 
