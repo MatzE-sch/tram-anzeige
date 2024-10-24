@@ -43,7 +43,7 @@ class LedStrip():
     
     def __setitem__(self, pixel_id, color):
         pixel_id = pixel_id + self.station_led
-        print(pixel_id, color)
+        # print(pixel_id, color)
         self.pixel_values[pixel_id] = [color]
         self.show()
         if pixel_id == self.station_led and Color.dominant_channel(color) == 'R':
@@ -55,7 +55,7 @@ class LedStrip():
 
         self.pixels[:] = [color_list[self.show_number % len(color_list)] if len(color_list) > 0 else Color.black for color_list in self.pixel_values]
         self.pixels.show()
-        print('show_number', self.show_number)
+        # print('show_number', self.show_number)
         self.show_number += 1
 
     def reset_pixel_values(self):
