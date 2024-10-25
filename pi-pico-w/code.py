@@ -47,8 +47,7 @@ class LedStrip():
         # print(pixel_id, color)
         self.pixel_values[pixel_id] = [color]
         self.show()
-        if pixel_id == self.station_led and Color.dominant_channel(color) == 'R':
-            raise IndexError('index = 0')
+        
 
     def brightness(self, brightness):
         self.pixels.brightness = brightness
