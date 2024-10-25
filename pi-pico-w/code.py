@@ -92,19 +92,6 @@ class LedStrip():
         # self.show()
 
 
-def reset_microcontroller(led_strip, wait_seconds = 10):
-    print(f"Resetting microcontroller in {wait_seconds} seconds")
-    for _ in range(wait_seconds):
-        led_strip[0] = Color.red
-        led_strip.show()
-        time.sleep(0.5)
-        led_strip[0] = Color.black
-        led_strip.show()
-        time.sleep(0.5)
-    led_strip.reset_pixels()
-    microcontroller.reset()
-
-
 # JSON-Daten von URL abrufen
 def fetch_json(requests, url, led_strip):
     try:
@@ -144,17 +131,7 @@ def fetch_json(requests, url, led_strip):
 
     except Exception as e:
         print("Error:\n", str(e))
-        print("Resetting microcontroller in 10 seconds")
-        for _ in range(5):
-            #  TODO: fix!!!
-            led_strip[0] = Color.red
-            # led_strip_tmp.show()
-            time.sleep(0.5)
-            led_strip[0] = Color.black
-            # led_strip_tmp.show()
-            time.sleep(0.5)
-        # time.sleep(5)
-        reset_microcontroller(led_strip)    
+        reset_microcontroller(led_strip, 5)  
     return data
  
 
@@ -249,7 +226,19 @@ def sleep_or_adjust_brightness(sleep_time, light_sensor=None, led_strip=None):
         time.sleep(sleep_time)
         return
     adjust_brightness(light_sensor, led_strip, 0.5)
-    
+
+def reset_microcontroller(led_strip, wait_seconds = 10):
+    print(f"Resetting microcontroller in {wait_seconds} seconds")
+    for _ in range(wait_seconds):
+        led_strip[0] = Color.red
+        # led_strip.show()
+        time.sleep(0.5)
+        led_strip[0] = Color.black
+        # led_strip.show()
+        time.sleep(0.5)
+    led_strip.reset_pixels()
+    microcontroller.reset()
+
 def main():
     led_strip = LedStrip(PIXEL_PIN, NUM_PIXELS, PIXEL_FOR_STATION, BRIGHTNESS)
     # pixels init
