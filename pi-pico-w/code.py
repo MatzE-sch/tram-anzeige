@@ -231,10 +231,8 @@ def reset_microcontroller(led_strip, wait_seconds = 10):
     print(f"Resetting microcontroller in {wait_seconds} seconds")
     for _ in range(wait_seconds):
         led_strip[0] = Color.red
-        # led_strip.show()
         time.sleep(0.5)
         led_strip[0] = Color.black
-        # led_strip.show()
         time.sleep(0.5)
     led_strip.reset_pixels()
     microcontroller.reset()
