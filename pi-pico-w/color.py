@@ -4,7 +4,7 @@ class Color:
     blue = (0, 0, 255)
     white = (127, 127, 127)
     black = (0, 0, 0)
-    dark_green = (0, 100, 0)
+    dark_green = (0, 160, 0)
     yellow = (127, 127, 0)
     cyan = (0, 90, 127)
     

@@ -27,6 +27,6 @@ SECONDS_PER_LED = 30
 BRIGHTNESS = 0.1
 
 # Wenn du einen Lichtsensor hast:
-# SENSOR_PIN = board.GP27_A1 # Analog input
-# MAX_BRIGHTNESS = 0.1
-# MIN_BRIGHTNESS = 0.012
+SENSOR_PIN = board.GP27_A1 # Analog input
+MAX_BRIGHTNESS = 0.1
+MIN_BRIGHTNESS = 0.012
