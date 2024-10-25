@@ -61,7 +61,3 @@ Danke @KingBBQ
 
 ## TODOs:
 - api key?
-- add daylightsensor ;)
-- led strip class
-  - better boot animation?
-  - switch colors when trams overlap in same pixel
