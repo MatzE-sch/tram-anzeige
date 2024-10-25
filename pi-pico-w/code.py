@@ -228,13 +228,15 @@ def adjust_brightness(light_sensor, led_strip, average_over_secunds = 0.5):
         average_sensor_value = (average_sensor_value * sensor_readings + light_sensor.value) / (sensor_readings + 1)
         sensor_readings += 1
         # print('average_sensor_value', average_sensor_value)
-        # time.sleep(0.1)
     # value ca between 1500 and 200
     sensor_max = 1500 # very dark
     sensor_min = 200 # very bright
     sensor_value_max_min = max(sensor_min, min(sensor_max, average_sensor_value)) # ensure range
     sensor_value_0_1 = (sensor_value_max_min - sensor_min) / (sensor_max - sensor_min) # normalize to 0-1
-    brightness = MAX_BRIGHTNESS - sensor_value_0_1 * (MAX_BRIGHTNESS - MIN_BRIGHTNESS)
+    try:
+        brightness = MAX_BRIGHTNESS - sensor_value_0_1 * (MAX_BRIGHTNESS - MIN_BRIGHTNESS)
+    except NameError:
+        brightness = BRIGHTNESS
 
     print('sensor_value', average_sensor_value)
     # scale brightness to be between MIN_BRIGHTNESS and MAX_BRIGHTNESS
@@ -243,9 +245,9 @@ def adjust_brightness(light_sensor, led_strip, average_over_secunds = 0.5):
 
     led_strip.brightness(brightness)
 
-def sleep_or_adjust_brightness(time, light_sensor=None, led_strip=None):
+def sleep_or_adjust_brightness(sleep_time, light_sensor=None, led_strip=None):
     if light_sensor == None or led_strip == None:
-        time.sleep(time)
+        time.sleep(sleep_time)
         return
     adjust_brightness(light_sensor, led_strip, 0.5)
     
@@ -255,7 +257,12 @@ def main():
     led_strip.push_center((255, 170, 0))
 
     # Initialize the analog input for the photosensitive resistor
-    light_sensor = analogio.AnalogIn(SENSOR_PIN) if SENSOR_PIN != None else None
+    try:
+        light_sensor = analogio.AnalogIn(SENSOR_PIN)
+        print('Light sensor found')
+    except NameError:
+        light_sensor = None
+        print('No light sensor found')
 
     try:
         #  connect to SSID
