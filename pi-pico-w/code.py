@@ -10,6 +10,7 @@ import microcontroller
 
 from color import Color
 from settings import *
+import analogio
 
 # WLAN-Zugangsdaten in settings.toml speichern
 WIFI_SSID = os.getenv('CIRCUITPY_WIFI_SSID')
@@ -25,8 +26,8 @@ REFRESH_AFTER = 20 # seconds
 
 
 class LedStrip():
-    def __init__(self, io_pin, num_leds, station_led):
-        self.pixels = neopixel.NeoPixel(io_pin, num_leds, brightness=BRIGHTNESS, auto_write=False)
+    def __init__(self, io_pin, num_leds, station_led, brightness):
+        self.pixels = neopixel.NeoPixel(io_pin, num_leds, brightness=brightness, auto_write=False)
         self.station_led = station_led
         # self.pixel_values = [[] for _ in range(num_leds)]
         self.reset_pixel_values()
@@ -36,7 +37,7 @@ class LedStrip():
         return ''.join(Color.dominant_channel(color) for color in self.pixels)
 
     def __getitem__(self, key):
-        key = key - self.station_led
+        key = key + self.station_led
         if key < 0:
             raise IndexError('index on hardware leds < 0')
         return self.pixel_values[key]
@@ -49,9 +50,12 @@ class LedStrip():
         if pixel_id == self.station_led and Color.dominant_channel(color) == 'R':
             raise IndexError('index = 0')
 
+    def brightness(self, brightness):
+        self.pixels.brightness = brightness
+
     def show(self):
         # print('pixel_values', self.pixel_values)
-        print('strip: ', self)
+        # print('strip: ', self)
 
         self.pixels[:] = [color_list[self.show_number % len(color_list)] if len(color_list) > 0 else Color.black for color_list in self.pixel_values]
         self.pixels.show()
@@ -92,10 +96,10 @@ class LedStrip():
 def reset_microcontroller(led_strip, wait_seconds = 10):
     print(f"Resetting microcontroller in {wait_seconds} seconds")
     for _ in range(wait_seconds):
-        led_strip[PIXEL_FOR_STATION] = Color.red
+        led_strip[0] = Color.red
         led_strip.show()
         time.sleep(0.5)
-        led_strip[PIXEL_FOR_STATION] = Color.black
+        led_strip[0] = Color.black
         led_strip.show()
         time.sleep(0.5)
     led_strip.reset_pixels()
@@ -144,10 +148,10 @@ def fetch_json(requests, url, led_strip):
         print("Resetting microcontroller in 10 seconds")
         for _ in range(5):
             #  TODO: fix!!!
-            led_strip[PIXEL_FOR_STATION] = Color.red
+            led_strip[0] = Color.red
             # led_strip_tmp.show()
             time.sleep(0.5)
-            led_strip[PIXEL_FOR_STATION] = Color.black
+            led_strip[0] = Color.black
             # led_strip_tmp.show()
             time.sleep(0.5)
         # time.sleep(5)
@@ -215,14 +219,43 @@ def fetch_data(requests, led_strip):
     time_of_data = time.monotonic()
     return time_of_data, data
 
+def adjust_brightness(light_sensor, led_strip, average_over_secunds = 0.5):
+    # Set the brightness of the LED strip based on the sensor reading
+    average_sensor_value = light_sensor.value
+    sensor_readings = 1
+    start_time = time.monotonic()
+    while time.monotonic() - start_time < average_over_secunds:
+        average_sensor_value = (average_sensor_value * sensor_readings + light_sensor.value) / (sensor_readings + 1)
+        sensor_readings += 1
+        # print('average_sensor_value', average_sensor_value)
+        # time.sleep(0.1)
+    # value ca between 1500 and 200
+    sensor_max = 1500 # very dark
+    sensor_min = 200 # very bright
+    sensor_value_max_min = max(sensor_min, min(sensor_max, average_sensor_value)) # ensure range
+    sensor_value_0_1 = (sensor_value_max_min - sensor_min) / (sensor_max - sensor_min) # normalize to 0-1
+    brightness = MAX_BRIGHTNESS - sensor_value_0_1 * (MAX_BRIGHTNESS - MIN_BRIGHTNESS)
 
+    print('sensor_value', average_sensor_value)
+    # scale brightness to be between MIN_BRIGHTNESS and MAX_BRIGHTNESS
+    
+    print('brightness', brightness)
 
+    led_strip.brightness(brightness)
+
+def sleep_or_adjust_brightness(time, light_sensor=None, led_strip=None):
+    if light_sensor == None or led_strip == None:
+        time.sleep(time)
+        return
+    adjust_brightness(light_sensor, led_strip, 0.5)
+    
 def main():
-
-    led_strip = LedStrip(PIXEL_PIN, NUM_PIXELS, PIXEL_FOR_STATION)        
-
+    led_strip = LedStrip(PIXEL_PIN, NUM_PIXELS, PIXEL_FOR_STATION, BRIGHTNESS)
     # pixels init
     led_strip.push_center((255, 170, 0))
+
+    # Initialize the analog input for the photosensitive resistor
+    light_sensor = analogio.AnalogIn(SENSOR_PIN) if SENSOR_PIN != None else None
 
     try:
         #  connect to SSID
@@ -260,12 +293,16 @@ def main():
             # update visual every second
             start_time = time.monotonic()
             while time.monotonic() - start_time < REFRESH_AFTER-0.5:
+
+                # sleep_or_adjust_brightness(0.5, light_sensor, led_strip)
                 time.sleep(0.5)
                 led_strip[0] = Color.station_color2
-                time.sleep(0.5)
-                # led_strip_tmp.show()
 
+
+                sleep_or_adjust_brightness(0.5, light_sensor, led_strip)
                 led_strip[0] = Color.station_color1
+
+                
                 
             time.sleep(0.5)
 
