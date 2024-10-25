@@ -71,12 +71,12 @@ class LedStrip():
 
 
     def push_center(self, color):
-        half_pixels = list(self.pixels[self.station_led:])
+        half_pixels = list(self.pixel_values[self.station_led:])
         # print('half_pixels', half_pixels)
-        centered = half_pixels[::-1] + [color] + half_pixels
+        centered = half_pixels[::-1] + [[color]] + half_pixels
         # print('centered', centered)
-        self.pixels[:] = centered[1:-1] # push in from left
-        self.pixels.show()
+        self.pixel_values[:] = centered[1:-1] # push in from left
+        self.show()
 
 
     def pixel_add(self, pixel, color):

@@ -45,6 +45,13 @@ Weil's oft pressiert, und man nicht immer auf das Handy schauen will!
     ./what-is-my-stop-id.sh Wertachbrücke
     ```
 
+## Trouble shooting:
+### Error Codes:
+- Gelb, blink Rot, Gelb
+  => Konnte nicht mit WLAN verbinden
+- Rot blinkende stations LED
+  => Fehler, bald Reset + Neustart
+
 ### Selbst anpassen?
 Normal sollte alles Notwendige in [`settings.py`](pi-pico-w/settings.py) und `settings.toml` anpassbar sein.  
 Gerne auch in [`code.py`](pi-pico-w/code.py) vorbeischauen, oder Farben in [`colors.py`](pi-pico-w/colors.py) anpassen ;) 
