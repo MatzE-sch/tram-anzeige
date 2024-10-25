@@ -7,6 +7,7 @@ class Color:
     dark_green = (0, 160, 0)
     yellow = (127, 127, 0)
     cyan = (0, 90, 127)
+    purple = (200, 0, 70)
     
     warning = yellow
     station_color1 = green
