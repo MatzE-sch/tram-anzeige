@@ -19,7 +19,7 @@ DIRECTIONS = {
 # Diese Werte für deinen LED Streifen anpassen
 NUM_PIXELS = 61
 PIXEL_FOR_STATION = 30 # Der Pixel der die Haltestelle repräsentiert
-PIXEL_PIN = board.GP19
+PIXEL_PIN = board.IO16
 SECONDS_PER_LED = 30
 
 
@@ -27,6 +27,6 @@ SECONDS_PER_LED = 30
 BRIGHTNESS = 0.1
 
 # Wenn du einen Lichtsensor hast:
-SENSOR_PIN = board.GP27_A1 # Analog input
-MAX_BRIGHTNESS = 0.1
-MIN_BRIGHTNESS = 0.012
+# SENSOR_PIN = board.GP27_A1 # Analog input on pi pico w
+# MAX_BRIGHTNESS = 0.1
+# MIN_BRIGHTNESS = 0.012

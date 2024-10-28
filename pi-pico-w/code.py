@@ -2,6 +2,7 @@ import wifi
 import socketpool
 import ssl
 import adafruit_requests
+import gc
 # import board
 import neopixel
 import time
@@ -39,6 +40,9 @@ def fetch_json(requests, url, led_strip):
             print("Response content:\n", response.text)
             raise
         
+
+        # Print memory usage
+        print("Memory Info - Free: {} bytes, Allocated: {} bytes".format(gc.mem_free(), gc.mem_alloc()))
         # example: 
         # [
         #   {
