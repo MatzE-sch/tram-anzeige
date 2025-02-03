@@ -1,3 +1,7 @@
+Weiterentwickelt auf GitLab.
+Bei interesse meld dich gerne bei mir privat oder per issue
+
+
 ```
  _____                            _                  _            
 |_   _| __ __ _ _ __ ___         / \   _ __  _______(_) __ _  ___ 
