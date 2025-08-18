@@ -28,11 +28,17 @@ Weil's oft pressiert, und man nicht immer auf das Handy schauen will!
     - Abstand 5 LEDs = in 5 Minuten fährt die Tram an der Wertachbrücke ab
 
 ## Benötigte Hardware
-- Raspberry Pi Pico W
+- Raspberry Pi Pico W (recommended)
 - LED-Streifen, einzel addressierbar (WS2812b)
 - n paar Käbelchen zum anlöten
 - micro usb Kabel
 - Stromquelle
+
+### Alternative Hardware:
+- **ESP32-C3**: Possible alternative to Pico W, but requires code adaptation
+  - See [ESP32-C3 Troubleshooting Guide](ESP32-C3-TROUBLESHOOTING.md) for connectivity issues
+  - Would need porting from CircuitPython to Arduino/MicroPython
+
 ### zum Basteln
 - Lötkolben
 - PC
@@ -50,11 +56,21 @@ Weil's oft pressiert, und man nicht immer auf das Handy schauen will!
     ```
 
 ## Trouble shooting:
-### Error Codes:
+
+### Hardware Issues:
+- **ESP32-C3 not showing as ttyACM* device?** See [ESP32-C3 Troubleshooting Guide](ESP32-C3-TROUBLESHOOTING.md)
+- **Raspberry Pi Pico W not detected?** Try different USB cable or port, check for driver issues
+
+### Error Codes (LED Patterns):
 - Gelb, blink Rot, Gelb
   => Konnte nicht mit WLAN verbinden
 - Rot blinkende stations LED
   => Fehler, bald Reset + Neustart
+
+### Common Issues:
+- **No WiFi connection**: Check `settings.toml` for correct SSID/password
+- **LED strip not working**: Verify pin connections and power supply
+- **Wrong tram data**: Adjust `STOP_ID` in `settings.py` using `what-is-my-stop-id.sh`
 
 ### Selbst anpassen?
 Normal sollte alles Notwendige in [`settings.py`](pi-pico-w/settings.py) und `settings.toml` anpassbar sein.  
